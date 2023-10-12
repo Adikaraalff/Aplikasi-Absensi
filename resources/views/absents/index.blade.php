@@ -17,9 +17,8 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                {{-- <th>jabatan</th> --}}
+                <th>Appointment</th>
                 <th>Status</th>
-                <th width="280px">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -41,19 +40,13 @@
                         data: 'name',
                         name: 'name'
                     },
-                    // {
-                    //     data: 'status_jabatan',
-                    //     name: 'status_jabatan'
-                    // },
+                    {
+                        data: 'status_jabatan',
+                        name: 'status_jabatan'
+                    },
                     {
                         data: 'status_name',
                         name: 'status_name'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
                     },
                 ]
             });

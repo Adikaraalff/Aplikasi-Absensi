@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absent;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -23,7 +24,7 @@ class  AbsentController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            // $data = Dosen::select('*');
+            // $data = Appointment::select('*');
             $query_data = new Absent();
             if ($request->sSearch) {
                 $search_value = '%' . $request->sSearch . '%';
@@ -38,21 +39,22 @@ class  AbsentController extends Controller
                 ->addIndexColumn()
                 ->addColumn('name', function (Absent $ce) {
                     return $ce->User->name;
-                })->addColumn('status_name',function(Absent $absent){
-                    if($absent->status == 1){
+                })->addColumn('status_name', function (Absent $absent) {
+                    if ($absent->status == 1) {
                         return 'Hadir';
-                    } elseif ($absent->status == 0){
-                    return 'Tidak Hadir';
-                    }else {
+                    } elseif ($absent->status == 0) {
+                        return 'Tidak Hadir';
+                    } else {
                         return 'Tidak Hadir';
                     }
                 })
-                ->addColumn('action', function($row){
-                    //$btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-                    // $btn = '
-                    // <a class="btn btn-info" href="' . route('absents.store') . '">Absent</a>';
-                    // return $btn;
+                ->addColumn('status_jabatan', function (Absent $ce) {
+                    if ($ce->User->id_appointment == 1) {
+                        return 'head of office';
+                    }
+                    return 'employee';
                 })
+                
                 ->rawColumns(['action'])
                 ->make(true);
         }

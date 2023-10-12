@@ -23,33 +23,21 @@ class AppointmentController extends Controller
     {
         if ($request->ajax()) {
             $query_data = new Appointment();
-
             if ($request->sSearch) {
                 $search_value = '%' . $request->sSearch . '%';
                 $query_data = $query_data->where(function ($query) use ($search_value) {
-                    $query->where('id', 'like', $search_value)
+                    $query->where('id_appointment', 'like', $search_value)
                         ->orWhere('name', 'like', $search_value);
                 });
             }
 
-            $data = $query_data->orderBy('user_id', 'asc')->get();
+            $data = $query_data->orderBy('id_appointment', 'asc')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
-                // ->addColumn('name', function (Appointment $ce) {
-                //     return $ce->User->name;})
-                ->addColumn('jabatan',function(Appointment $appointment){
-                    if($appointment->status == 1){
-                        return 'head_of_office';
-                    }
-                    return 'employee';
+                
+                ->addColumn('action', function ($data) {
+                    // Tambahkan logika untuk kolom 'action' sesuai kebutuhan
                 })
-                ->addColumn('action', function($row){
-                    //$btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-                    // $btn = '
-                    // <a class="btn btn-info" href="' . route('absents.store') . '">Absent</a>';
-                    // return $btn;
-                })
-                ->rawColumns(['action'])
                 ->make(true);
         }
         return view('absents.index');
@@ -86,7 +74,7 @@ class AppointmentController extends Controller
     public function show(Appointment $appointment)
     {
         //
-        return view('dosens.show');
+        return view('absents.show');
     }
 
     /**

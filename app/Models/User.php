@@ -44,9 +44,8 @@ class User extends Authenticatable
         'name_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
     public function Appointment()
     {
-        return $this->hasOne(Appointment::class, 'id', 'id_appointment');
+        return $this->hasOne(Appointment::class, 'id_appointment', 'id');
     }
 }

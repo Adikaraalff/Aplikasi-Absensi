@@ -14,8 +14,8 @@ class Appointment extends Model
         'id', 'name',
     ];
 
-    public function User()
-    {
-        return $this->belongsTo(User::class, 'id_appointment', 'id');
-    }
+    public function User(){
+        return $this->hasOne(User::class, 'id', 'id_appointment');
+   }
+   
 }

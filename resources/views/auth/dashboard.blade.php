@@ -16,6 +16,7 @@
 
                         <h4>Welcome, {{ Auth::user()->name }}</h4>
                         <p>NIP: {{ Auth::user()->nip }}</p>
+                        <!-- <p>Jabatan: {{ Auth::user()->id_appointment }}</p> -->
                         <div class="text-center">
                             <img src="{{ asset('profile/' . Auth::user()->image) }}" alt="Profile Image" width="100px">
                         </div>
