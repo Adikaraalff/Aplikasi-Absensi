@@ -76,7 +76,7 @@ class AuthController extends Controller
     public function dashboard()
     {
         if (Auth::check()) {
-            $absent = Absent::where('user_id','=',Auth::user()->id)->first();
+            $absent = Absent::where('user_id',Auth::user()->id)->first();
 
             return view('auth.dashboard',compact('absent'));
         }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absent;
-use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -113,6 +112,24 @@ class  AbsentController extends Controller
     {
         //
         return view('absents.edit');
+    }
+
+    public function updateStatus(Request $request, $user)
+    {
+        // Validate the request data if needed
+        $request->validate([
+            'absentStatus' => 'required|in:0,1',
+        ]);
+
+        // Find the absent record for the user
+        $absent = Absent::where('user_id', $user)->firstOrFail(); // Adjust the column name and model as per your setup
+
+        // Update the absent status
+        $absent->status = $request->input('absentStatus');
+        $absent->save();
+
+        // Redirect back or to a different route after the update
+        return redirect()->back()->with('success', 'Status updated successfully');
     }
 
     /**
